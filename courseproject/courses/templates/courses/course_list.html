@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course List</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f9; padding: 40px; }
+        .container { width: 85%; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 12px; margin-bottom: 15px; }
+        h2 { color: #2c3e50; margin: 0; }
+        .welcome-msg { font-weight: bold; color: #2980b9; font-size: 1.1rem; }
+        .btn-logout { padding: 8px 16px; background: #e74c3c; color: white; text-decoration: none; border-radius: 4px; font-size: 0.9rem; font-weight: bold; }
+        .btn-logout:hover { background: #c0392b; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .btn-add { display: inline-block; padding: 10px 15px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 4px; margin-top: 15px; margin-bottom: 15px; font-weight: 600; }
+        .btn-add:hover { background-color: #219150; }
+        .action-link { margin-right: 10px; text-decoration: none; font-weight: bold; }
+        .edit-link { color: #3498db; }
+        .delete-link { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-bar">
+            <span class="welcome-msg">Welcome, {{ user.username }}</span>
+            <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+        </div>
+
+        <h2>All Courses</h2>
+        <a href="{% url 'add_course' %}" class="btn-add">+ Add New Course</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl. No.</th>
+                    <th>Course Name</th>
+                    <th>Course Code</th>
+                    <th>Duration</th>
+                    <th>Fee</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.course_code }}</td>
+                    <td>{{ course.duration }}</td>
+                    <td>{{ course.fee }}</td>
+                    <td>
+                        <a href="{% url 'edit_course' course.pk %}" class="action-link edit-link">Edit</a>
+                        <a href="{% url 'delete_course' course.pk %}" class="action-link delete-link" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align: center;">No courses found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Course</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f9; padding: 40px; }
+        .form-card { width: 400px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { display: inline-block; width: 100%; padding: 10px; background: #3498db; color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+        .btn:hover { background: #2980b9; }
+        .btn-secondary { display: block; text-align: center; margin-top: 10px; color: #7f8c8d; text-decoration: none; font-size: 0.9rem; }
+        .btn-secondary:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="form-card">
+        <h2>Edit Course</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Course Name</label>
+                <input type="text" name="course_name" value="{{ course.course_name }}" required>
+            </div>
+            <div class="form-group">
+                <label>Course Code</label>
+                <input type="text" name="course_code" value="{{ course.course_code }}" required>
+            </div>
+            <div class="form-group">
+                <label>Duration</label>
+                <input type="text" name="duration" value="{{ course.duration }}" required>
+            </div>
+            <div class="form-group">
+                <label>Fee</label>
+                <input type="text" name="fee" value="{{ course.fee }}" required>
+            </div>
+            <button type="submit" class="btn">Update Course</button>
+            <a href="{% url 'course_list' %}" class="btn-secondary">Cancel & Back</a>
+        </form>
+    </div>
+
+</body>
+</html>
